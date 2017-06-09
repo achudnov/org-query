@@ -77,6 +77,14 @@ This function is mainly used as a single point to print debug messages."
     ;; (message "if-todo-p match %S on %S %S" match-states (org-heading-components) (org-get-todo-state))
     (not (null (member (org-get-todo-state) match-states)))))
 
+(defun org-query-scheduled ()
+  "Is the headline at point SCHEDULED"
+  (let ((marker (save-excursion (or (outline-next-heading) (point-max)))))
+	(let ((scheduled (org-entry-get marker "SCHEDULED")))
+	  (not (null scheduled))))
+  ;;   (if scheduled 't nil))
+)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skipping functions ;;
