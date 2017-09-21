@@ -82,9 +82,14 @@ This function is mainly used as a single point to print debug messages."
   (let ((marker (save-excursion (or (outline-next-heading) (point-max)))))
 	(let ((scheduled (org-entry-get marker "SCHEDULED")))
 	  (not (null scheduled))))
-  ;;   (if scheduled 't nil))
 )
 
+(defun org-query-deadline ()
+  "Is the headline at point DEADLINE"
+  (let ((marker (save-excursion (or (outline-next-heading) (point-max)))))
+	(let ((scheduled (org-entry-get marker "DEADLINE")))
+	  (not (null scheduled))))
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skipping functions ;;
