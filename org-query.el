@@ -84,12 +84,21 @@ This function is mainly used as a single point to print debug messages."
 	  (not (null scheduled))))
   )
 
-(defun org-query-deadline ()
-  "Is the headline at point DEADLINE"
-  (let ((marker (save-excursion (or (outline-next-heading) (point-max)))))
-	(let ((scheduled (org-entry-get marker "DEADLINE")))
-	  (not (null scheduled))))
-)
+(defun org-query-deadline (&optional from to)
+  "Does this headline have a DEADLINE. Optionally, with the value between from and to, if present"
+    (let ((marker (save-excursion (or (outline-next-heading) (point-max))))
+	  (deadline (org-entry-get marker "DEADLINE")))
+    (and (not (null deadline))
+	 ;; check the time bounds
+	 ;; check the lower bound
+	 (or (null from)
+	     (string< from deadline))
+	 ;; check the upper bound
+	 (or (null to)
+	     (string< deadline to))
+	 )
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; skipping functions ;;
